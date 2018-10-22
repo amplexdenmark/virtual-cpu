@@ -1,0 +1,66 @@
+#!/bin/bash
+
+cd /tmp
+echo "Deploy one of more of the following"
+echo -----------------------------------
+ampep status | head -2
+echo -----------------------------------
+ls -l gridlight-dist-latest.tar.gz ampep-dist-latest.tar.gz amplight.ear
+echo -----------------------------------
+if ampep status | head -1 | grep -q StartTime ;then
+	echo "System is running. Make sure 'AmpEP.sh stop' was run"
+	exit 1
+fi
+
+if [ "$1" = "-force" ] ;then
+    force=1 ; shift
+fi
+if [ -z "$1" ]; then
+    read -n 1 -t 30 -p 'Choose [S]tartGrid, [G]ridlight, [B]oth, amp[I]O or [A]ll: ' reply
+else
+    reply=$1
+fi
+echo ''
+
+
+installSafe() {
+    sys=$1
+    if [ -z $force ] ;then
+        if [[ ! -f ${sys}-release  || ! -f $HOME/${sys}-release ]] ;then
+            echo "Missing ${sys}-release file"
+            exit 1
+        fi
+        if [[ $(grep ^URL: ${sys}-release) != $(grep ^URL: $HOME/${sys}-release) ]] ;then
+            echo "Use -force: $(grep ^URL: ${sys}-release | cut -c14-) != $(grep ^URL: $HOME/${sys}-release | cut -c14-)"
+            exit 1
+        fi
+    fi
+    ./install_dist.sh -f
+}
+
+case "$reply" in
+        [gG]*|[bB]*|[aA]*)
+    echo "Deploying gridlight"
+    cd /tmp
+    tar xzf gridlight-dist-latest.tar.gz && \
+    cd gridlight-dist/`ls -1 gridlight-dist | sort -t'-' -k4 | tail -1`
+    installSafe gridlight
+esac
+
+case "$reply" in
+        [sS]*|[bB]*|[aA]*)
+    echo "Deploying ampep"
+    ampep ampcom stop
+    cd /tmp
+    tar xzf ampep-dist-latest.tar.gz && \
+    cd ampep-dist/`ls -1 ampep-dist | sort -t'-' -k4 | tail -1`
+    installSafe ampep
+esac
+
+case "$reply" in
+        [iI]*|[aA]*)
+    echo "Deploying ampio"
+    cd /tmp
+    cp amplight.ear $JBOSS_HOME/standalone/deployments
+esac
+
