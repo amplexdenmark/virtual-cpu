@@ -13,9 +13,9 @@ ENV LC_ALL          en_US.UTF-8
 
 RUN dpkg --add-architecture i386 && apt-get update
 RUN apt-get --no-install-recommends install -y \
-            zlib1g:i386  libncurses5:i386 libreadline5:i386 libwebsockets7:i386
+            zlib1g:i386  libncurses5:i386 libreadline6:i386 libwebsockets7:i386
 
-RUN apt-get --no-install-recommends install -y bash-completion
+RUN apt-get --no-install-recommends install -y bash-completion luajit busybox strace:i386
 
 RUN apt-get dist-upgrade -y && apt-get -y autoremove && apt-get -y autoclean
 

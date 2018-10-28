@@ -14,17 +14,18 @@ clean2:
 clean: clean2
 	rm .docker
 
-shell: clean2
+shell: clean2 container
 	@echo "Starting $(NAME) .."
-	docker run --name $(NAME) --hostname $(NAME) --rm --volume `pwd`/storage:/amplex \
+	docker run --security-opt seccomp:unconfined \
+		--name $(NAME) --hostname $(NAME) --rm --volume `pwd`/storage:/amplex \
 		--env TERM=$(subst -italic,,$(TERM)) -it $(IMAGE) shell
 
-bash: clean2
+bash: clean2 container
 	@echo "Starting $(NAME) .."
 	docker run --name $(NAME) --hostname $(NAME) --rm --volume `pwd`/storage:/amplex \
 		--env TERM=$(subst -italic,,$(TERM)) -it --entrypoint=/bin/bash $(IMAGE) -i
 
-start: clean2
+start: clean2 container
 	@echo "Running $(NAME) .."
 	docker run --detach --name $(NAME) --hostname $(NAME) --rm --volume `pwd`/storage:/amplex \
 		--publish 8042:8080/tcp $(IMAGE)
