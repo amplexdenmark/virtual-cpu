@@ -28,7 +28,7 @@ common() {
 start() {
     common
     shift
-    (sudo --login --user=amplex cpu-start.sh "$@" &)
+    (sudo --login --user=amplex /usr/sbin/cpu-start.sh "$@" &)
     while true ;do wait ; sleep 0.25 ;done # Keep it running while reaping any burpy daemons
 }
 
