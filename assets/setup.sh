@@ -34,6 +34,7 @@ sudo -u amplex bash -s << 'EOF'
     ln -s /amplex/home/.bash_history .
     ln -s /amplex/home/bashrc.d .
     ln -s /amplex/home/.config .
+    mkdir -p /amplex/home/tmp
 EOF
 
 # Install startup script for container 
