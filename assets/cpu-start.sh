@@ -53,7 +53,7 @@ lorawan_customers | while IFS=$'\t' read id name sysconf ;do
   spec=${spec//$'\n'/}
   spec=${spec//'"'/'\"'}
   echo "$spec" > /tmp/lorawan_driver_driver_spec_$id
-  env PARAM_lorawan-driver_driver-spec="$spec" virtcpu virtcpu-run $((4002000000 + id)) $localhost &
+  env PARAM_lorawan-driver_driver-spec="$spec" LOG_USE_STDOUT=1 virtcpu virtcpu-run $((4002000000 + id)) $localhost &
 done
 
 # vim: set sw=2 sts=2 et:
