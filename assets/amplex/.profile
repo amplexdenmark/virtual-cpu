@@ -17,5 +17,5 @@ if [ -n "$BASH_VERSION" ]; then
 fi
 
 PATH="$HOME/bin:$PATH"
-source <(/amplex/virtcpu/install/root/usr/bin/virtcpu env | \
-         awk '/^[A-Z_]+=/ {split($0,X,"="); print "export " X[1] "=\047" substr($0, length(X[1])+2) "\047"}')
+#source <(/amplex/virtcpu/install/root/usr/bin/virtcpu env | \
+#         awk '/^[A-Z_]+=/ {split($0,X,"="); print "export " X[1] "=\047" substr($0, length(X[1])+2) "\047"}')

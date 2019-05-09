@@ -19,7 +19,7 @@ common() {
 
 start() {
     common
-    docker run --detach --name $NAME --hostname $NAME $PORTS --volume `pwd`/storage:/amplex $IMAGE
+    docker run --detach --name $NAME --hostname $NAME $PORTS --volume `pwd`/storage:/amplex -t $IMAGE
 }
 
 shell() {

@@ -17,6 +17,7 @@ common() {
     [ -f /amplex/crontab.root ] || cp /assets/crontab.root /amplex
     crontab /amplex/crontab.root
     crontab -u amplex /amplex/crontab.amplex
+
     service cron start
 
     service ssh start

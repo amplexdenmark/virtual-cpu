@@ -1,5 +1,7 @@
 #!/bin/bash
 
+echo "SETUP"
+
 set -o errexit
 
 cd /assets
@@ -40,3 +42,8 @@ EOF
 # Install startup script for container 
 cp /assets/startup.sh /sbin/startup.sh
 chmod 755 /sbin/startup.sh
+cp /assets/cpu-start.sh /sbin/cpu-start.sh
+chmod 755 /sbin/cpu-start.sh
+
+echo $WSPASSWD > /opt/amplex/.wspasswd
+

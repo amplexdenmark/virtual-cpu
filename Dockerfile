@@ -4,6 +4,9 @@
 FROM ubuntu-stuffed
 #FROM ubuntu:16.04
 
+ARG WSPASSWD=
+ENV WSPASSWD=${WSPASSWD}
+    
 MAINTAINER Flemming Madsen <amplexdenmark@gmail.com>
 
 # From https://github.com/mlaccetti/docker-oracle-java8-ubuntu-16.04/blob/master/Dockerfile
