@@ -10,7 +10,6 @@
 WSPASSWD=`cat /opt/amplex/.wspasswd`
 echo "CPU start"
 localhost=localhost
-echo "Y" >> /opt/virtcpu/cpustart
 export PATH=$PATH:/opt/virtcpu/install/root/usr/bin
 grep -s -q linuxkit /proc/version && localhost=host.docker.internal
 
