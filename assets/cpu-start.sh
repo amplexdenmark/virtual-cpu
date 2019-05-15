@@ -18,7 +18,7 @@ grep -s -q linuxkit /proc/version && localhost=host.docker.internal
 curl_mksession() {
   CODE=$(curl -s --cookie /tmp/ampimp-cookie-jar --cookie-jar /tmp/ampimp-cookie-jar -w '%{http_code}\n' \
          -H 'Authorization: Basic aW1wb3J0ZXI6SnVtcGluZ0Zpc2hTdGlja0F0MTg=' http://$localhost:8000/aasws/nodes -o /dev/null)
-  [[ $CODE == 200 ]] && echo --cookie /tmp/ampimp-cookie-jar || echo "--uimporter:$WSPASSWD"
+  [[ $CODE == 200 ]] && echo --cookie /tmp/ampimp-cookie-jar || echo "-uimporter:$WSPASSWD"
 }
 
 lorawan_customers() {
