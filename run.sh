@@ -2,7 +2,7 @@
 
 NAME="virtual-cpu"
 IMAGE="virtual-cpu"
-PORTS="-p 32022:22 -p 8000:8000"
+PORTS="-p 32022:22"
 
 die() {
   echo "$@"
@@ -20,12 +20,12 @@ common() {
 start() {
     common
     echo "Starting $NAME .."
-    docker run --detach --name $NAME --hostname $NAME $PORTS --volume `pwd`/storage:/amplex -t $IMAGE
+    docker run --network="host" --detach --name $NAME --hostname $NAME $PORTS --volume `pwd`/storage:/amplex -t $IMAGE
 }
 
 shell() {
     common
-    docker run --name $NAME --hostname $NAME $PORTS --volume `pwd`/storage:/amplex -it $IMAGE shell
+    docker run --network="host" --name $NAME --hostname $NAME $PORTS --volume `pwd`/storage:/amplex -it $IMAGE shell
 }
 
 bash() {
