@@ -44,6 +44,7 @@ cp /assets/startup.sh /sbin/startup.sh
 chmod 755 /sbin/startup.sh
 cp /assets/cpu-start.sh /sbin/cpu-start.sh
 chmod 755 /sbin/cpu-start.sh
+ln -sf libreadline.so.6 /lib/i386-linux-gnu/libreadline.so.7
 
 echo $WSPASSWD > /opt/amplex/.wspasswd
 

@@ -20,7 +20,8 @@ common() {
 
     service cron start
 
-    service ssh start
+    : ${SSH_PORT:=32022}
+    SSHD_OPTS="-p $SSH_PORT" service ssh start
 
     sudo --login --user=amplex bash -c "mkdir -p /amplex/home/.config"
 

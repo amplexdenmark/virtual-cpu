@@ -70,6 +70,3 @@ alias l='ls -lF'
 
 source /etc/bash_completion
 for f in $HOME/bashrc.d/*.sh ;do [ -f $f ] && source $f ;done
-
-echo "BASHRC CPU-START"
-cpu-start.sh
