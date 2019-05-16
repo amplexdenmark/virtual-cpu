@@ -22,7 +22,8 @@ RUN apt-get --no-install-recommends install -y bash-completion luajit busybox st
 RUN apt-get --no-install-recommends install -y netcat iputils-ping file valgrind libc6-dbg:i386
 RUN apt-get dist-upgrade -y && apt-get -y autoremove && apt-get -y autoclean
 
-RUN apt-get upgrade && apt-get --no-install-recommends install -y jq lua-sql-postgres lua-sql-postgres:i386
+RUN apt-get update && apt-get upgrade -y \
+ && apt-get --no-install-recommends install -y jq tmux psmisc lua-sql-postgres lua-sql-postgres:i386
 
 
 ADD assets /assets
