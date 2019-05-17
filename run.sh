@@ -3,6 +3,10 @@
 NAME="virtual-cpu"
 IMAGE="virtual-cpu"
 PORTS="--env SSH_PORT=32022"
+LOGS="--log-opt max-size=50m --log-opt max-file=2"
+NAMES="--name $NAME --hostname localhost"
+OPTS="--network=host"
+MOUNT="--volume `pwd`/storage:/amplex"
 
 die() {
   echo "$@"
@@ -20,17 +24,17 @@ common() {
 start() {
     common
     echo "Starting $NAME .."
-    docker run --network="host" --detach --name $NAME --hostname localhost $PORTS --volume `pwd`/storage:/amplex -t $IMAGE start
+    docker run $OPTS $NAMES $LOGS $PORTS $MOUNT -t --detach $IMAGE start
 }
 
 shell() {
     common
-    docker run --network="host" --name $NAME --hostname localhost $PORTS --volume `pwd`/storage:/amplex -it $IMAGE shell
+    docker run $OPTS $NAMES $LOGS $PORTS $MOUNT -it $IMAGE shell
 }
 
 bash() {
     common
-    docker run --name $NAME --volume `pwd`/storage:/amplex -it --entrypoint=/bin/bash $IMAGE -i
+    docker run $OPTS $NAMES $LOGS $PORTS $MOUNT -it --entrypoint=/bin/bash $IMAGE -i
 }
 
 stop() {

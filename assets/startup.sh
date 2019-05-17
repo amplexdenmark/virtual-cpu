@@ -18,10 +18,11 @@ common() {
     crontab /amplex/crontab.root
     crontab -u amplex /amplex/crontab.amplex
 
-    service cron start
 
-    : ${SSH_PORT:=32022}
-    SSHD_OPTS="-p $SSH_PORT" service ssh start
+    /etc/init.d/cron start
+
+    : ${SSH_PORT:=22}
+    /etc/init.d/ssh start "-p $SSH_PORT"
 
     sudo --login --user=amplex bash -c "mkdir -p /amplex/home/.config"
 
