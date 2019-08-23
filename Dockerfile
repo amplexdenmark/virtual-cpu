@@ -16,14 +16,14 @@ ENV LC_ALL          en_US.UTF-8
 
 RUN dpkg --add-architecture i386 && apt-get update
 RUN apt-get --no-install-recommends install -y \
-            zlib1g:i386  libncurses5:i386 libreadline6:i386 libwebsockets7:i386
+            zlib1g:i386  libncurses5:i386 libreadline7:i386 libwebsockets8:i386
 
 RUN apt-get --no-install-recommends install -y bash-completion luajit busybox strace:i386 libnss3:i386
 RUN apt-get --no-install-recommends install -y netcat iputils-ping file valgrind libc6-dbg:i386
 RUN apt-get dist-upgrade -y && apt-get -y autoremove && apt-get -y autoclean
 
 RUN apt-get update && apt-get upgrade -y \
- && apt-get --no-install-recommends install -y jq tmux psmisc lua-sql-postgres lua-sql-postgres:i386
+ && apt-get --no-install-recommends install -y jq tmux psmisc lua-sql-postgres lua-sql-postgres:i386 openssl1.0:i386
 
 
 ADD assets /assets
