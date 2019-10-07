@@ -16,13 +16,13 @@ grep -s -q linuxkit /proc/version && localhost=host.docker.internal
 # Try curl login with "nodes" ws
 curl_mksession() {
   CODE=$(curl -s --cookie /tmp/ampimp-cookie-jar --cookie-jar /tmp/ampimp-cookie-jar -w '%{http_code}\n' \
-         -H 'Authorization: Basic aW1wb3J0ZXI6SnVtcGluZ0Zpc2hTdGlja0F0MTg=' http://$localhost:8000/aasws/nodes -o /dev/null)
+         -H 'Authorization: Basic aW1wb3J0ZXI6SnVtcGluZ0Zpc2hTdGlja0F0MTg=' http://$localhost:8008/aasws/nodes -o /dev/null)
   [[ $CODE == 200 ]] && echo --cookie /tmp/ampimp-cookie-jar || echo "-uimporter:$WSPASSWD"
 }
 
 lorawan_customers() {
     LOGIN=$(curl_mksession)
-  curl -s $LOGIN http://$localhost:8000/sso/r/customer > /tmp/customers.json
+  curl -s $LOGIN http://$localhost:8008/sso/r/customer > /tmp/customers.json
   cat /tmp/customers.json | jq -j '.[] | select(.systems) | select(.systems| .[] | .=="amplex.gridlight-lorawan") | "\(.id)\t\(.name)\t\(.systemsConfiguration)\n"'
 }
 
