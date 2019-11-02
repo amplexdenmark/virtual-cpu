@@ -32,6 +32,7 @@ start() {
     common
     shift
     (sudo --login --user=amplex cpu-start.sh "$@" &)
+    (sudo --login --user=amplex /bin/bash -c "while true ;do nc -lp 7777 | xargs cpu-single-start.sh ;done & " ) #listen for new or changed configurations
     while true ;do wait ; sleep 0.25 ;done # Keep it running while reaping any burpy daemons
 }
 
