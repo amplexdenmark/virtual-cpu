@@ -1,6 +1,6 @@
 #!/bin/bash
 ###
-# @file cpu-start.sh
+# @file cpu-single-start.sh
 # ABSTRACT HERE << 
 #
 # $Id$
