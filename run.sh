@@ -54,6 +54,12 @@ build() {
     docker build -t $IMAGE git@github.com:amplexdenmark/${IMAGE}.git
 }
 
+clean-build() {
+    docker build -t ubuntu-stuffed git@github.com:amplexdenmark/ubuntu-stuffed.git
+    docker build --no-cache -t $IMAGE git@github.com:amplexdenmark/${IMAGE}.git
+}
+
+
 [ $# -gt 0 ] || die "$0: 'start|stop|logs|tail'"
 mkdir -p storage
 
