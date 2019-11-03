@@ -13,8 +13,8 @@ echo "CPU start $customerid"
 localhost=localhost
 export PATH=$PATH:/opt/virtcpu/install/root/usr/bin
 grep -s -q linuxkit /proc/version && localhost=host.docker.internal
-pid=`pgrep $((4002000000 + $customerid))`
-
+pid=`pgrep -f $((4002000000 + $customerid))`
+echo "PID: $pid" 
 if [ ! -z "$pid" ] ;then
     echo "Killing existing virtual-cpu for customer: $customerid"
     kill $pid
