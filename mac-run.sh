@@ -2,7 +2,7 @@
 
 NAME="virtual-cpu"
 IMAGE="virtual-cpu"
-PORTS="-p 32022:22 -p 7777:7777"
+PORTS="-p 32022:22 -p 5555:5555"
 
 die() {
   echo "$@"

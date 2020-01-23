@@ -8,6 +8,10 @@
 # (C) Copyright 2018 Amplex, fm@amplex.dk
 #
 WSPASSWD=`cat /opt/amplex/.wspasswd`
+if [ -z "$1" ] ;then
+    echo "No customer id supplied"
+    exit 1
+fi
 customerid=$1
 echo "CPU start $customerid"
 localhost=localhost
