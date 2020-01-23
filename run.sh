@@ -37,6 +37,10 @@ bash() {
     docker run $OPTS $NAMES $LOGS $PORTS $MOUNT -it --entrypoint=/bin/bash $IMAGE -i
 }
 
+connect() {
+    docker exec -it `docker container ls | grep virtual-cpu | cut -c 1-12` "bash"
+}
+
 stop() {
     docker ps -q --filter name=$NAME | xargs -r docker stop
 }
