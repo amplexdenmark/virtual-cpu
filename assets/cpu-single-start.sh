@@ -22,6 +22,7 @@ echo "PID: $pid"
 if [ ! -z "$pid" ] ;then
     echo "Killing existing virtual-cpu for customer: $customerid"
     kill $pid
+    sleep 2
 fi
 
 # Try curl login with "nodes" ws
@@ -34,7 +35,8 @@ curl_mksession() {
 lorawan_customers() {
     LOGIN=$(curl_mksession)
   curl -s $LOGIN http://$localhost:8008/sso/r/customer > /tmp/customers.json
-  cat /tmp/customers.json | jq -j '.[] | select(.systems) | select(.systems| .[] | .=="amplex.gridlight-lorawan") | "\(.id)\t\(.name)\t\(.systemsConfiguration)\n"'
+  cat /tmp/customers.json | jq -r '.[] | select(.systems? | arrays | any(.=="amplex.gridlight-lorawan"))
+                                   | "\(.id)\t\(.name)\t\(.systemsConfiguration)"'
 }
 
 lorawan_customers | while IFS=$'\t' read id name sysconf ;do
